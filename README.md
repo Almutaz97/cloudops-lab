@@ -19,6 +19,9 @@ The initial version contains a simple Python REST API built with FastAPI and ser
 - Local API testing with curl
 - SSH local port forwarding for remote access
 - Git version control and GitHub repository
+- Modular Python application package (`app/`)
+- Linux process, port, and permission troubleshooting
+- Operational documentation (`docs/operations.md`)
 
 ## Quick Start
 
@@ -28,7 +31,7 @@ The initial version contains a simple Python REST API built with FastAPI and ser
 2. Create the environment: `python3 -m venv .venv`
 3. Activate it: `source .venv/bin/activate`
 4. Install dependencies: `python -m pip install -r requirements.txt`
-5. Start the API: `uvicorn main:app --host 127.0.0.1 --port 8000`
+5. Start the API: `uvicorn app.main:app --host 127.0.0.1 --port 8000`
 6. Test it: `curl -i http://127.0.0.1:8000/health`
 
 **Expected response:**
