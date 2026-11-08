@@ -9,3 +9,7 @@ app = FastAPI(title=settings.app_name)
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+@app.get("/ready")
+def ready():
+    return {"status": "ready"}
