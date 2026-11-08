@@ -1,0 +1,23 @@
+[Unit]
+Description=ServiceOps FastAPI Application
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/projects/cloudops-lab
+
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/home/ubuntu/projects/cloudops-lab/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

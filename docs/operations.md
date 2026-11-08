@@ -21,10 +21,57 @@
 - HTTP verification: `curl -i http://127.0.0.1:8000/health`
 - Confirm that the application runs without root privileges.
 
-## Current Limitations
-- Uvicorn is started manually.
-- Automatic restart is not configured.
-- systemd integration is planned for Week 2.
+## systemd Service Management
+
+ServiceOps runs as a systemd-managed Linux service.
+
+Service definition: `deploy/systemd/serviceops.service`
+
+### Installation
+
+    sudo install -m 644 deploy/systemd/serviceops.service /etc/systemd/system/serviceops.service
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now serviceops
+
+The service file currently uses Ubuntu-specific absolute paths.
+
+### Operations
+
+Check service status:
+
+    systemctl status serviceops
+
+Restart the service:
+
+    sudo systemctl restart serviceops
+
+Stop the service:
+
+    sudo systemctl stop serviceops
+
+View recent logs:
+
+    sudo journalctl -u serviceops -n 50 --no-pager
+
+Follow logs:
+
+    sudo journalctl -u serviceops -f
+
+### Failure Recovery Verification
+
+A controlled SIGKILL test confirmed:
+
+- systemd detected the process failure.
+- Restart=on-failure triggered automatic recovery.
+- Uvicorn restarted with a new PID.
+- The /health endpoint returned HTTP 200 after recovery.
+
+### Current Limitations
+
+- Service paths are specific to the local Ubuntu VM.
+- Boot-time startup is enabled but has not been tested after reboot.
+- No external dependency readiness checks yet.
+- No container-based deployment yet.
 
 ## Application Logging
 
@@ -56,3 +103,5 @@ Run all tests:
 
 Tests cover API responses, configuration, application lifecycle,
 and unexpected error handling.
+
+
