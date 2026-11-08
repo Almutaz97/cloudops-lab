@@ -40,6 +40,28 @@ The initial version contains a simple Python REST API built with FastAPI and ser
 
 The health endpoint currently verifies that the application can respond to HTTP requests. It does not validate external dependencies.
 
+## Application Configuration
+
+ServiceOps uses environment variables for configuration.
+
+| Variable | Default | Description |
+|---|---|---|
+| SERVICEOPS_APP_NAME | ServiceOps | FastAPI application title |
+| SERVICEOPS_LOG_LEVEL | INFO | Application logging level |
+
+Example:
+
+    SERVICEOPS_APP_NAME=ServiceOps-Dev uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+Supported log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL.
+
+Invalid log levels cause application startup to fail.
+
+See `.env.example` for sample configuration values.
+
+The application does not automatically load `.env` files.
+Logging configuration will be integrated in Day 5.
+
 ## Planned Development
 
 - Containerization with Docker and Docker Compose
