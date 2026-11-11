@@ -104,4 +104,31 @@ Run all tests:
 Tests cover API responses, configuration, application lifecycle,
 and unexpected error handling.
 
+## ServiceOps Diagnostic Script
+
+Script: `scripts/serviceops-check.sh`
+
+### Usage
+
+    ./scripts/serviceops-check.sh
+
+### Checks
+
+1. Verify systemd service is active.
+2. Verify TCP port 8000 is listening.
+3. Verify /health returns HTTP 200.
+
+### Reliability
+
+- Port check retries up to 10 times.
+- Exit code 0 indicates success.
+- Exit code 1 indicates a failed check.
+- The script diagnoses failures but does not restart services.
+
+### Verified Scenarios
+
+- Healthy service: all checks passed.
+- Stopped service: failure detected.
+- Service restart: startup timing issue identified.
+- Retry logic: successful verification after restart.
 
